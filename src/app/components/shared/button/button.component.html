@@ -1,0 +1,10 @@
+<button type="button"
+  class="px-2 py-2 bg-blue-500 text-white font-semibold text-md flex items-center justify-center rounded-md transition-colors duration-300"
+  [ngClass]="{
+    'bg-blue-500 hover:bg-blue-700': color === 'blue',
+    'bg-red-500 hover:bg-red-700': color === 'red', 
+    'bg-green-600 hover:bg-green-800': color === 'green'
+  }"
+  (click)="clickHandler()">
+  <ng-content></ng-content>
+</button>

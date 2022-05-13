@@ -1,0 +1,108 @@
+<h1 class="my-10 text-4xl font-bold text-blue-400">
+  Gerenciamento de alunos
+</h1>
+
+<div class="grid grid-cols-students gap-10">
+  <section id="student-form" class="w-full mx-auto rounded-xl shadow-md overflow-hidden">
+    <h2 class="py-3 px-8 mb-8 text-gray-700 text-center font-medium bg-blue-100 uppercase">
+      Cadastrar Aluno
+    </h2>
+    <form class="px-8">
+
+      <div class="flex flex-col mb-8">
+        <label for="name" class="font-medium text-gray-700 text-lg mb-2">
+          Nome
+        </label>
+        <input type="text" name="name" id="name" placeholder="nome" class="p-2 border-2 border-gray-100 rounded-md"
+          [(ngModel)]="student.name">
+      </div>
+
+      <div class="flex flex-col mb-8">
+        <label for="firstGrade" class="font-medium text-gray-700 text-lg mb-2">
+          Primeira Nota
+        </label>
+        <input type="number" name="firstGrade" id="firstGrade" placeholder="Primeira nota"
+          [(ngModel)]="student.firstGrade" class="p-2 border-2 border-gray-100 rounded-md">
+      </div>
+
+      <div class="flex flex-col mb-8">
+        <label for="firstGrade" class="font-medium text-gray-700 text-lg mb-2">
+          Segunda Nota
+        </label>
+        <input type="number" name="secondGrade" id="secondGrade" placeholder="Segunda nota"
+          [(ngModel)]="student.secondGrade" class="p-2 border-2 border-gray-100 rounded-md">
+      </div>
+
+      <div class="mb-8">
+        <app-button (clickEvent)="create()" *ngIf="!edit">
+          Cadastrar
+        </app-button>
+        <app-button (clickEvent)="update()" *ngIf="edit" color="green">
+          Alterar
+        </app-button>
+      </div>
+
+    </form>
+  </section>
+  <section id="students-table" class="w-full">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-blue-100">
+          <tr>
+            <th class="px-6 py-3">
+              Nome
+            </th>
+            <th class="px-6 py-3">
+              Id
+            </th>
+            <th class="px-6 py-3">
+              Nota 1
+            </th>
+            <th class="px-6 py-3">
+              Nota 2
+            </th>
+            <th class="px-6 py-3">
+              Média
+            </th>
+            <th class="px-6 py-3">
+              Status
+            </th>
+            <th class="px-6 py-3 text-center">
+              <span>Ações</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="bg-white border-b" *ngFor="let student of students">
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+              {{ student.name }}
+            </th>
+            <td class="px-6 py-4">
+              {{ student.id }}
+            </td>
+            <td class="px-6 py-4">
+              {{ student.firstGrade | number: '1.1-1' }}
+            </td>
+            <td class="px-6 py-4">
+              {{ student.secondGrade | number: '1.1-1' }}
+            </td>
+            <td class="px-6 py-4">
+              {{ student.getAverage() | number: '1.1-1' }}
+            </td>
+            <td class="px-6 py-4">
+              {{ student.isAproved() ? "Aprovado" : "Reprovado" }}
+            </td>
+            <td class="px-6 py-2 text-right flex items-center w-fit gap-3 mx-auto">
+              <app-button (clickEvent)="handleEditButtonClick(student.id)">
+                Editar
+              </app-button>
+              <app-button color="red" (clickEvent)="remove(student.id)">
+                Excluir
+              </app-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
